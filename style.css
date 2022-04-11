@@ -1,0 +1,132 @@
+:root{
+    --bg-image: url(assets/DEVinWallpaper_1.png);
+    --bg-color: #ffffff;
+    --bg-btn: #0b44ff;
+    --white: whitesmoke;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: var(--bg-image);
+    background-position: 100%;
+    background-repeat: no-repeat;
+}
+
+.navbar{
+    background-color: var(--bg-color);
+    margin-bottom: 30px;
+}
+
+.logo-nav{
+    width: 120px;
+    margin-right: 20px;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    max-width: 700px;
+    min-height: 400px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.459);
+}
+
+.form{
+    margin-top: 30px;
+    width: 80%;
+}
+.form > label{
+    font-size: 1.5em;
+    font-weight:bold ;
+}
+.input-item{
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #cecdcd;
+    background-color: #f1f0f0;
+    padding-left: 10px;
+    font-size: 1.2em;
+}
+.menu{
+    display: flex;
+
+}
+.btn-insert{
+    font-size: 1.5em;
+    font-weight:bold ;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid var(--white);
+    background-color: var(--bg-btn);
+    color: var(--white);
+    margin-left: 5px;
+    padding: 0 25px;
+    transition: .5s;
+}
+.btn-insert:hover{
+    border: 1px solid var(--bg-btn);
+    background-color: var(--white);
+    color: var(--bg-btn);
+}
+.resultado{
+    background-color: #f0ffff;
+    margin-top: 30px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 5px;
+}
+.item{
+    list-style: none;
+}
+.total{
+    border-left: 1px solid black;
+    padding-left: 10px;
+}
+.item > li{
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+
+.footer {
+    background-color: var(--bg-color);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+}
+.footer > p{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.footer .redes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.footer .redes ul {
+    display: flex;
+    list-style: none;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.footer .redes ul li {
+    margin-right: 40px;
+}
+.footer .redes ul li a {
+    color: black;
+}
