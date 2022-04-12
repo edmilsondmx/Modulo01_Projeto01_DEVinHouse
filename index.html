@@ -27,11 +27,11 @@
         
     </header>
     <main>
-        <form class="form">
+        <form class="form" id="form">
             <label for="list-item">Insira um item na lista</label>
             <div class="menu">
                 <input class="input-item" type="text" name="list-item" id="list-item" placeholder="Ex.: Pizza">
-                <button class="btn-insert" id="btn" type="button">Inserir</button>
+                <button class="btn-insert" id="btn" type="submit">Inserir</button>
             </div>
         </form>
         <div class="resultado">
@@ -43,6 +43,23 @@
             <div class="total">
                 <h2>Total das compras:</h2>
                 <h3 class="valor">R$ 0,00</h3>
+            </div>
+        </div>
+  
+        <!-- Modal -->
+        <div class="fabe" id="exampleModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Valor</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="number" id="valor">
+                    </div>
+                    <div class="modal-btn-valor">
+                        <button type="button" class="btn-valor" id="btn-valor" onclick="insereValor()">Inserir</button>
+                    </div>
+                </div>
             </div>
         </div>
 
