@@ -105,21 +105,19 @@ const insereValor = () => {
     for(i = 0; i < listaArray.length; i++ ){
         if(listaArray[i].id == idItemSelecionado){
             listaArray[i].valor = valor;
-            console.log(listaArray[i].valor)
         };
     };
-    
+    console.log(listaArray)
     valorItem.value = "";
     fechaModal()
     totalFinal()
-    console.log(listaArray)
 };
 
 
 const totalFinal = () => {
     const total = document.getElementById('total')
     const somaTotal = listaArray.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
-    total.innerText = `R$ ${somaTotal.toLocaleString()}`;
+    total.innerText = `R$ ${somaTotal.toLocaleString('pt-BR')}`;
 }
 
 

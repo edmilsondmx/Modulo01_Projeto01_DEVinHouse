@@ -1,7 +1,7 @@
 :root{
     --bg-image: url(assets/DEVinWallpaper_1.png);
     --bg-color: #ffffff;
-    --bg-btn: #0b44ff;
+    --bg-btn: #0059ff;
     --white: whitesmoke;
 }
 
@@ -106,6 +106,10 @@ main{
     color: var(--white);
     background-color: rgb(253, 75, 75);
 }
+.valor{
+    color: var(--bg-btn);
+    font-weight: bold;
+}
 #exampleModal{
     display: none;
     position: fixed;
@@ -147,7 +151,6 @@ main{
 }
 .footer > p{
     text-align: center;
-    font-weight: bold;
     margin-bottom: 0;
 }
 .footer .redes {
@@ -159,12 +162,18 @@ main{
 .footer .redes ul {
     display: flex;
     list-style: none;
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 0;
 }
 .footer .redes ul li {
     margin-right: 40px;
 }
 .footer .redes ul li a {
-    color: black;
+    color: #0059ff;
+}
+
+@media screen and (max-width:540px) {
+    .resultado{
+        width: 100%;
+    }
 }
