@@ -1,39 +1,76 @@
-const botao = document.getElementById('btn');
-const produto = document.getElementById('list-item');
-const lista = document.getElementById('lista');
+const ul = document.getElementById('lista')
+let li;
+let itemId;
+let item;
+
+const listaArray = [];
 
 const form = document.querySelector('form');
 form.addEventListener('submit', el =>{
     el.preventDefault();
 });
 
-botao.addEventListener('click', () => {
-    if(produto.value){
-        const check = document.createElement('input');
-        check.type = 'checkbox';
-        check.className = "form-check-input";
-        check.setAttribute('onclick', "abreModal()")
+const gerarId = () => {
+    return Math.floor(Math.random() * 1000);
+}
 
-        const btnExclui = document.createElement('button');
-        btnExclui.onclick = () => removeItem();
-        btnExclui.textContent = 'X';
-        btnExclui.className = 'excluiItem';
+addItem = () => {
+    if(document.getElementById('list-item').value != ""){
+        item = document.getElementById('list-item');;
+        itemId = gerarId()
+        li = criarElItem(item.value, itemId);
+        li.appendChild(criarBtnCheck(itemId));
+        li.appendChild(criarBtnRemover(itemId));
+        ul.appendChild(li);
 
-        const item = document.createElement('li');
-        item.appendChild(check);
-        item.innerHTML += produto.value;
-        item.appendChild(btnExclui);
-        lista.appendChild(item);
-        produto.value = "";
-        produto.focus();
-        
-        return carrinho.nome
-        
+        listaArray.push({'id':itemId, 'item':item.value, 'valor': 0})
+
+        item.value = "";
+        item.focus();
     } else {
         alert('Digite um item na lista!');
-    };
-});
+    }
 
+    console.log(listaArray)
+
+}
+
+removeItem = (itemId) => {
+    for(i = 0; i < ul.children.length; i++ ){
+        if(ul.children[i].getAttribute("index") == itemId){
+            ul.children[i].remove();
+        };
+        if(listaArray[i].id == itemId){
+            listaArray.splice(i, 1);
+        };
+    };
+    console.log(listaArray)
+};
+
+criarElItem = (itemValue, itemId) => {
+    let li = document.createElement('li');
+    li.setAttribute('index', itemId);
+    li.appendChild(document.createTextNode(itemValue));
+    return li;
+
+}
+
+criarBtnRemover = (itemId) => {
+    let btn = document.createElement('button');
+    btn.setAttribute('onclick', 'removeItem('+itemId+')');
+    btn.innerHTML = "X";
+    btn.className = "excluiItem"
+    return btn;
+}
+
+criarBtnCheck = (itemId) => {
+    let btnCheck = document.createElement('input');
+    btnCheck.type = 'checkbox';
+    btnCheck.className = "form-check-input";
+    btnCheck.setAttribute('onclick', 'abreModal('+itemId+')');
+
+    return btnCheck;
+}
 
 const modal = document.getElementById('exampleModal')
 modal.addEventListener('click', function(e) {
@@ -42,24 +79,43 @@ modal.addEventListener('click', function(e) {
     };
 });  
 
-function abreModal() {
+
+
+function abreModal(itemId){
     modal.style.display = 'block';
+    for(i = 0; i < ul.children.length; i++ ){
+        if(ul.children[i].getAttribute("index") == itemId){
+            ul.children[i].className = "taxado";
+        };
+    }
 };
-  
-function fechaModal() {
+
+
+function fechaModal(itemId) {
     modal.style.display = 'none';
 };
 
 
-const insereValor = () => {
+const insereValor = (itemId) => {
     const valorItem = document.getElementById('valor');
+    let valor = Number(valorItem.value);
+    for(i = 0; i < listaArray.length; i++ ){
+        if(listaArray[i].id == itemId){
+            listaArray[i].valor = valor;
+        };
+    };
+    
     modal.value = "";
-    fechaModal();
-    console.log(valorItem.value)
+    fechaModal()
+    totalFinal()
+    console.log(listaArray)
 };
 
 
-
-
+const totalFinal = () => {
+    const total = document.getElementById('total')
+    const somaTotal = listaArray.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
+    total.innerText = `R$ ${somaTotal.toLocaleString()}`
+}
 
 
