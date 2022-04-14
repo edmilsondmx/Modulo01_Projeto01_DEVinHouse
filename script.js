@@ -14,11 +14,11 @@ const gerarId = () => {
     return Math.floor(Math.random() * 1000);
 }
 
-addItem = () => {
+const addItem = () => {
     if(document.getElementById('list-item').value != ""){
         item = document.getElementById('list-item');;
         itemId = gerarId()
-        li = criarElItem(item.value, itemId);
+        li = criarElemItem(item.value, itemId);
         li.appendChild(criarBtnCheck(itemId));
         li.appendChild(criarBtnRemover(itemId));
         ul.appendChild(li);
@@ -35,7 +35,7 @@ addItem = () => {
 
 }
 
-removeItem = (itemId) => {
+const removeItem = (itemId) => {
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
             ul.children[i].remove();
@@ -43,11 +43,13 @@ removeItem = (itemId) => {
         if(listaArray[i].id == itemId){
             listaArray.splice(i, 1);
         };
+        totalFinal()
     };
+    
     console.log(listaArray)
 };
 
-criarElItem = (itemValue, itemId) => {
+const criarElemItem = (itemValue, itemId) => {
     let li = document.createElement('li');
     li.setAttribute('index', itemId);
     li.appendChild(document.createTextNode(itemValue));
@@ -80,32 +82,34 @@ modal.addEventListener('click', function(e) {
 });  
 
 
-
+let idItemSelecionado;
 function abreModal(itemId){
     modal.style.display = 'block';
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
             ul.children[i].className = "taxado";
+            idItemSelecionado = ul.children[i].getAttribute("index");
         };
     }
 };
 
 
-function fechaModal(itemId) {
+function fechaModal() {
     modal.style.display = 'none';
 };
 
 
-const insereValor = (itemId) => {
+const insereValor = () => {
     const valorItem = document.getElementById('valor');
     let valor = Number(valorItem.value);
     for(i = 0; i < listaArray.length; i++ ){
-        if(listaArray[i].id == itemId){
+        if(listaArray[i].id == idItemSelecionado){
             listaArray[i].valor = valor;
+            console.log(listaArray[i].valor)
         };
     };
     
-    modal.value = "";
+    valorItem.value = "";
     fechaModal()
     totalFinal()
     console.log(listaArray)
@@ -115,7 +119,7 @@ const insereValor = (itemId) => {
 const totalFinal = () => {
     const total = document.getElementById('total')
     const somaTotal = listaArray.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
-    total.innerText = `R$ ${somaTotal.toLocaleString()}`
+    total.innerText = `R$ ${somaTotal.toLocaleString()}`;
 }
 
 
