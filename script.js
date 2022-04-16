@@ -135,7 +135,7 @@ const insereValor = () => {
 
 const totalFinal = (list) => {
     const total = document.getElementById('total')
-    const somaTotal = list.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
+    const somaTotal = list.reduce((soma, item) => soma + item.valor, 0).toFixed(2).replace('.',',');
     total.innerText = `R$ ${somaTotal.toLocaleString('pt-BR')}`;
 }
 
