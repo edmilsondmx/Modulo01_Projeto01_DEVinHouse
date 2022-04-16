@@ -10,18 +10,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/159e43023c.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="carregarPagina()">
     <header>
         <nav class="navbar navbar-expand navbar-ligth">
-            <div class="container-fluid">
-                <img class="logo-nav" src="assets/devinhouse-logo.png" alt="Logo Devinhouse">
-                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-primary text-decoration-none h2">MeuMercado.Com &#x1F349
+            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <div class="img-logo"><img class="logo-nav" src="assets/devinhouse-logo.png" alt="Logo Devinhouse"></div>
+                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none h2">MeuMercado.Com &#x1F349
                 </a>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link text-primary" href="#">Home</a>
-                        <a class="nav-link text-primary active " style="font-weight: bold;" href="#">Lista de Compras</a>
-                    </div>
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <a class="nav-link text-white" href="#">Home</a>
+                        <a class="nav-link text-white active " style="font-weight: bold;" href="#">Lista de Compras</a>
+                    </ul>
+                </div>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Procurar...">
+                </form>
+    
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2">Entrar</button>
+                    <button type="button" class="btn btn-warning btn-outline-dark">Cadastre-se</button>
                 </div>
                 <img class="logo-nav" src="assets/Logo-NDD-Padrao-1-1024x512.png" alt="Logo NDD">
             </div>
@@ -29,23 +37,49 @@
         
     </header>
     <main>
-        <form class="form" id="form">
-            <label for="list-item">Insira um item na lista</label>
-            <div class="menu">
-                <input class="input-item" type="text" name="list-item" id="list-item" placeholder="Ex.: Pizza">
-                <button class="btn-insert" id="btn" type="submit" onclick="addItem()">Inserir</button>
-            </div>
-        </form>
-        <div class="resultado">
-            <div class="lista">
-                <ul class="item form-check form-switch" id="lista">
-                    
-                </ul>
-            </div>
-            <div class="total">
-                <h2>Total das compras:</h2>
-                <h3 class="valor" id="total">R$ 0,00</h3>
-            </div>
+        <div class="row">
+            <section class="col-12 col-md-4">
+                <h3 class="display-6 text-success">MeuMercado.Com</h3>
+                <img class="img-fluid mb-4" src="https://images.pexels.com/photos/1128678/pexels-photo-1128678.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Mercado">
+                
+                <div class="list-group my-3">
+                    <div class="list-group-item">
+                        <p class="h6">Endereço:</p>
+                        <span class="fw-ligth">Rua dos Programadores, 123 - São Paulo - SP</span>
+                    </div>
+                    <div class="list-group-item">
+                        <p class="h6">E-mail:</p>
+                        <span class="fw-ligth">meu@mercado.com</span>
+                    </div>
+                    <div class="list-group-item">
+                        <p class="h6">Telefone:</p>
+                        <span class="fw-ligth">(11) 99123-4567</span>
+                    </div>
+                </div>
+            </section>
+            <section class="col-12 col-md-8">
+                <form class="form" id="form">
+                    <label for="list-item">Insira um item na lista</label>
+                    <div class="menu">
+                        <input class="input-item" type="text" name="list-item" id="list-item" placeholder="Ex.: Pizza">
+                        <button class="btn-insert" id="btn" type="submit" onclick="adicionaItem()"><i class="fa-solid fa-cart-arrow-down"></i></button>
+                    </div>
+                </form>
+                <div class="resultado">
+                    <div class="lista">
+                        <ul class="item form-check form-switch" id="lista">
+            
+                        </ul>
+                    </div>
+                    <div class="total">
+                        <h2>Total das compras:</h2>
+                        <h3 class="valor" id="total">R$ 0,00</h3>
+                    </div>
+                </div>
+                <div class="content-btn">
+                    <button class="btn-limpar" onclick="limparLocalStorage()">Limpar lista</button>
+                </div>
+            </section>
         </div>
   
         <!-- Modal -->
@@ -56,7 +90,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Valor</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="number" id="valor">
+                        <input type="number" id="valor" class="input-item">
                     </div>
                     <div class="modal-btn-valor">
                         <button type="button" class="btn-valor" id="btn-valor" onclick="insereValor()" >Inserir</button>
@@ -69,7 +103,7 @@
 
     
     <footer class="footer">
-        <p class="text-primary">Desenvolvido por | Edmilson Gomes - DEVinHouse</p>
+        <p class="text-white">Desenvolvido por | Edmilson Gomes - DEVinHouse</p>
         <div class="redes">
             <ul>
                 <li><a href="#"><i class="fab fa-instagram"></i></a></li>

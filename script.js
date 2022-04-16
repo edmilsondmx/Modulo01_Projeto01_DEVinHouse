@@ -3,9 +3,10 @@ let li;
 let itemId;
 let item;
 
-const listaArray = [];
+let listaArray = [];
 
-const form = document.querySelector('form');
+
+const form = document.getElementById('form');
 form.addEventListener('submit', el =>{
     el.preventDefault();
 });
@@ -14,24 +15,31 @@ const gerarId = () => {
     return Math.floor(Math.random() * 1000);
 }
 
-const addItem = () => {
-    if(document.getElementById('list-item').value != ""){
-        item = document.getElementById('list-item');;
-        itemId = gerarId()
-        li = criarElemItem(item.value, itemId);
-        li.appendChild(criarBtnCheck(itemId));
-        li.appendChild(criarBtnRemover(itemId));
-        ul.appendChild(li);
-
-        listaArray.push({'id':itemId, 'item':item.value, 'valor': 0})
-
-        item.value = "";
+const adicionaItem = () => {
+    item = document.getElementById('list-item');;
+    itemId = gerarId()
+    if(item.value.trim() != ""){
+        if(listaArray == null){
+            listaArray = [];
+        }
+        listaArray.push({selecionado: false, 'id':itemId, 'item':item.value, 'valor': 0});
+        console.log(listaArray)
+        addHtml(item.value, itemId)
+        salvaLocalStorage('Lista', listaArray)
+        item.value = ""
         item.focus();
-    } else {
+    }else {
         alert('Digite um item na lista!');
     }
 
-    console.log(listaArray)
+}
+
+
+const addHtml = (itemValue, itemId) => {
+    li = criarElemItem(itemValue, itemId);
+    li.appendChild(criarBtnCheck(itemId));
+    li.appendChild(criarBtnRemover(itemId));
+    ul.appendChild(li);
 
 }
 
@@ -43,10 +51,11 @@ const removeItem = (itemId) => {
         if(listaArray[i].id == itemId){
             listaArray.splice(i, 1);
         };
-        totalFinal()
     };
-    
+    totalFinal(listaArray)
+    salvaLocalStorage('Lista', listaArray)
     console.log(listaArray)
+    
 };
 
 const criarElemItem = (itemValue, itemId) => {
@@ -57,7 +66,7 @@ const criarElemItem = (itemValue, itemId) => {
 
 }
 
-criarBtnRemover = (itemId) => {
+const criarBtnRemover = (itemId) => {
     let btn = document.createElement('button');
     btn.setAttribute('onclick', 'removeItem('+itemId+')');
     btn.innerHTML = "X";
@@ -65,7 +74,7 @@ criarBtnRemover = (itemId) => {
     return btn;
 }
 
-criarBtnCheck = (itemId) => {
+const criarBtnCheck = (itemId) => {
     let btnCheck = document.createElement('input');
     btnCheck.type = 'checkbox';
     btnCheck.className = "form-check-input";
@@ -75,8 +84,8 @@ criarBtnCheck = (itemId) => {
 }
 
 const modal = document.getElementById('exampleModal')
-modal.addEventListener('click', function(e) {
-    if (e.target == this){
+modal.addEventListener('click', function(ele) {
+    if (ele.target == this){
         modal.style.display = 'none';
     };
 });  
@@ -85,12 +94,17 @@ modal.addEventListener('click', function(e) {
 let idItemSelecionado;
 function abreModal(itemId){
     modal.style.display = 'block';
+    const valor = document.getElementById('valor');
+    valor.focus()
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
             ul.children[i].className = "taxado";
+            listaArray[i].selecionado = true;
             idItemSelecionado = ul.children[i].getAttribute("index");
         };
     }
+    console.log(listaArray)
+    
 };
 
 
@@ -108,16 +122,54 @@ const insereValor = () => {
         };
     };
     console.log(listaArray)
+    salvaLocalStorage('Lista', listaArray)
     valorItem.value = "";
     fechaModal()
-    totalFinal()
+    totalFinal(listaArray)
 };
 
 
-const totalFinal = () => {
+const totalFinal = (list) => {
     const total = document.getElementById('total')
-    const somaTotal = listaArray.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
+    const somaTotal = list.reduce((soma, item) => soma + item.valor, 0).toFixed(2);
     total.innerText = `R$ ${somaTotal.toLocaleString('pt-BR')}`;
 }
 
+const salvaLocalStorage = (key, elem) => {
+    localStorage.setItem(key, JSON.stringify(elem))
+};
+
+const recebeLocalStorage = () => {
+    let listaLocal = localStorage.getItem('Lista');
+    listaArray = JSON.parse(listaLocal);
+}
+
+const load = () => {
+    if(listaArray == null){
+        listaArray = [];
+    } else{
+        listaArray.forEach((prod) => {
+            addHtml(prod.item, prod.id);
+            if(prod.selecionado == true){
+                
+            }
+        })
+        
+    }
+};
+
+const limparLocalStorage = () => {
+    localStorage.clear();
+    location.reload()
+    listaArray.splice(0, listaArray.length);
+    console.log(listaArray)
+}
+
+
+const carregarPagina = () => {
+    recebeLocalStorage();
+    load()
+    totalFinal(listaArray)
+    console.log(listaArray)
+}
 
