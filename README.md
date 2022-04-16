@@ -2,7 +2,6 @@
 ## Projeto desenvolvido para o curso DEVinHouse - Turma NDD 🚀
 
 <img class="logo-nav" src="assets/telaProjeto.jpg" alt="img tela">
-## 
 <h2>🛠️ Tecnologias Usadas</h2>  
 <ul>
     <li>HTML5</li>
@@ -26,4 +25,4 @@
 * Botão que limpa item salvo em LocalStore;
 
 <h2>✒️Autor</h2>
-<h3>Edmilson Gomes</h3>
+<h3>Edmilson Gomes 😊</h3>
