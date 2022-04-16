@@ -2,7 +2,7 @@
     --bg-image: url(assets/DEVinWallpaper_1.png);
     --bg-color: #198754;
     --bg-btn: #198754;
-    --white: whitesmoke;
+    --white: white;
 }
 
 *{
@@ -91,9 +91,11 @@ main{
     width: 90%;
     margin-left: 5px;
     display: flex;
-    justify-content: space-evenly;
     padding: 20px;
     border-radius: 5px;
+}
+.lista{
+    width: 40%;
 }
 .item{
     list-style: none;
@@ -103,6 +105,7 @@ main{
     padding-left: 10px;
 }
 .item > li{
+
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: 700;
@@ -147,13 +150,19 @@ main{
 #exampleModal{
     display: none;
     position: fixed;
+    top: 40%;
     transition: 1s;
 }
-.modal{
-   top: 200px!important;
-}
+
 .modal-dialog{
-    max-width: 255px!important;
+    max-width: 350px!important;
+}
+.modal-header{
+    background-color: var(--bg-color);
+    color: var(--white);
+}
+.modal-content{
+    border-radius: 10px!important;
 }
 .modal-body > input{
     padding: 5px;
@@ -168,8 +177,15 @@ main{
     padding: 5px 30px;
     background-color: var(--bg-btn);
     color: var(--white);
+    border: 1px solid var(--white);
     border-radius: 5px;
     font-weight: bold;
+    transition: .5s;
+}
+.btn-valor:hover{
+    background-color: var(--white);
+    color: var(--bg-btn);
+    border: 1px solid var(--bg-btn);
 }
 
 .taxado{

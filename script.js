@@ -78,6 +78,7 @@ const criarBtnCheck = (itemId) => {
     let btnCheck = document.createElement('input');
     btnCheck.type = 'checkbox';
     btnCheck.className = "form-check-input";
+    btnCheck.checked = false;
     btnCheck.setAttribute('onclick', 'abreModal('+itemId+')');
 
     return btnCheck;
@@ -86,24 +87,27 @@ const criarBtnCheck = (itemId) => {
 const modal = document.getElementById('exampleModal')
 modal.addEventListener('click', function(ele) {
     if (ele.target == this){
-        modal.style.display = 'none';
+        alert('Insira um valor no campo!')
     };
-});  
+}); 
 
 
 let idItemSelecionado;
 function abreModal(itemId){
     modal.style.display = 'block';
-    const valor = document.getElementById('valor');
+    let valor = document.getElementById('valor');
+    let item = document.getElementById('itemPreço');
+
     valor.focus()
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
             ul.children[i].className = "taxado";
             listaArray[i].selecionado = true;
+            item.textContent = ` - ${listaArray[i].item.toUpperCase()}`
             idItemSelecionado = ul.children[i].getAttribute("index");
         };
     }
-    console.log(listaArray)
+
     
 };
 
@@ -144,18 +148,21 @@ const recebeLocalStorage = () => {
     listaArray = JSON.parse(listaLocal);
 }
 
-const load = () => {
+const atualizar = () => {
     if(listaArray == null){
         listaArray = [];
     } else{
         listaArray.forEach((prod) => {
             addHtml(prod.item, prod.id);
-            if(prod.selecionado == true){
-                
-            }
         })
-        
     }
+    let btnCheck = document.querySelectorAll('.form-check-input');
+    for(let i = 0; i < listaArray.length; i++){
+        if(listaArray[i].selecionado == true){
+            btnCheck[i].checked = true;
+            ul.children[i].className = "taxado";
+        };
+    };
 };
 
 const limparLocalStorage = () => {
@@ -168,8 +175,7 @@ const limparLocalStorage = () => {
 
 const carregarPagina = () => {
     recebeLocalStorage();
-    load()
+    atualizar()
     totalFinal(listaArray)
     console.log(listaArray)
 }
-
