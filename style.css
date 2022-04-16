@@ -244,6 +244,23 @@ main{
     color: white;
 }
 
+@media screen and (max-width:767px) {
+    .row{
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+    .resultado{
+        margin: auto;
+    }
+    .form {
+        width: 90%;
+        margin: auto;
+    }
+    .lista {
+        width: 60%;
+    }
+}
+
 @media screen and (max-width:540px) {
     .resultado{
         width: 100%;
