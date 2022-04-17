@@ -2,6 +2,7 @@
 ## Projeto desenvolvido para o curso DEVinHouse - Turma NDD 🚀
 
 <img class="logo-nav" src="assets/telaProjeto.jpg" alt="img tela">
+<img class="logo-nav" src="assets/tela_MeuMercado.png" alt="img tela">
 <h2>🛠️ Tecnologias Usadas</h2>  
 <ul>
     <li>HTML5</li>
