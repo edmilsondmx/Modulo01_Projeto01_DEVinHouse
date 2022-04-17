@@ -11,10 +11,12 @@ form.addEventListener('submit', el =>{
     el.preventDefault();
 });
 
+//Função que gera id aleatório
 const gerarId = () => {
     return Math.floor(Math.random() * 1000);
 };
 
+//Função que adiciona item no array
 const adicionaItem = () => {
     item = document.getElementById('list-item');
     itemId = gerarId();
@@ -33,22 +35,23 @@ const adicionaItem = () => {
     };
 };
 
+//Função que cria elemento li da lista
 const criarElemItem = (itemValue, itemId) => {
     let li = document.createElement('li');
     li.setAttribute('index', itemId);
     li.appendChild(document.createTextNode(itemValue));
     return li;
+};
 
-}
-
+//Função que adiona item do do array no HTML
 const addHtml = (itemValue, itemId) => {
     li = criarElemItem(itemValue, itemId);
     li.appendChild(criarBtnCheck(itemId));
     li.appendChild(criarBtnRemover(itemId));
     ul.appendChild(li);
+};
 
-}
-
+//Função que remove item do array
 const removeItem = (itemId) => {
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
@@ -63,6 +66,7 @@ const removeItem = (itemId) => {
     console.log(listaArray);
 };
 
+//Função que cria botão de remover
 const criarBtnRemover = (itemId) => {
     let btn = document.createElement('button');
     btn.setAttribute('onclick', 'removeItem('+itemId+')');
@@ -72,6 +76,7 @@ const criarBtnRemover = (itemId) => {
     return btn;
 };
 
+//Função que cria botão checkbox
 const criarBtnCheck = (itemId) => {
     let btnCheck = document.createElement('input');
     btnCheck.type = 'checkbox';
@@ -80,8 +85,9 @@ const criarBtnCheck = (itemId) => {
     btnCheck.setAttribute('onclick', 'abreModal('+itemId+')');
 
     return btnCheck;
-}
+};
 
+//Função que impede modar de ser fehado sem colocar valor
 const modal = document.getElementById('exampleModal')
 modal.addEventListener('click', function(elem) {
     if (elem.target == this){
@@ -89,12 +95,12 @@ modal.addEventListener('click', function(elem) {
     };
 }); 
 
+//Função de abrir modal, deixar item selecionado e taxado
 let idItemSelecionado;
-function abreModal(itemId){
+const abreModal = (itemId) => {
     modal.style.display = 'block';
     let valor = document.getElementById('valor');
     let item = document.getElementById('itemPreco');
-
     valor.focus();
     for(i = 0; i < ul.children.length; i++ ){
         if(ul.children[i].getAttribute("index") == itemId){
@@ -104,12 +110,16 @@ function abreModal(itemId){
             idItemSelecionado = ul.children[i].getAttribute("index");
         };
     };
+
 };
 
-function fechaModal() {
-    modal.style.display = 'none';
+//Função de fechar modal
+const fechaModal = () => {
+    let valor = document.getElementById('valor');
+    valor.value?modal.style.display = 'none':alert('Insira um valor no campo!');
 };
 
+//Função de inserir valor
 const insereValor = () => {
     const valorItem = document.getElementById('valor');
     let valor = Number(valorItem.value);
@@ -120,27 +130,30 @@ const insereValor = () => {
     };
     console.log(listaArray);
     salvaLocalStorage('Lista', listaArray);
-    valorItem.value = "";
     fechaModal();
+    valorItem.value = "";
     totalFinal(listaArray);
 };
 
-
+//função que soma o valor total da lista
 const totalFinal = (lista) => {
     const total = document.getElementById('total')
     const somaTotal = lista.reduce((soma, item) => soma + item.valor, 0).toFixed(2).replace('.',',');
     total.innerText = `R$ ${somaTotal.toLocaleString('pt-BR')}`;
 };
 
+//Função que salva item no LocalStorage
 const salvaLocalStorage = (chave, elem) => {
     localStorage.setItem(chave, JSON.stringify(elem));
 };
 
+//Função que retorna item do LocalStorage
 const recebeLocalStorage = () => {
     let listaLocalStorage = localStorage.getItem('Lista');
     listaArray = JSON.parse(listaLocalStorage);
 };
 
+//Função que atualiza item se for recarregada a página
 const atualizar = () => {
     if(listaArray == null){
         listaArray = [];
@@ -158,6 +171,8 @@ const atualizar = () => {
     };
 };
 
+
+//Função de limpar lista e LocalStorage
 const limparLocalStorage = () => {
     localStorage.clear();
     location.reload();
@@ -165,6 +180,7 @@ const limparLocalStorage = () => {
     console.log(listaArray);
 };
 
+//Função de Recarregar a página
 const carregarPagina = () => {
     recebeLocalStorage();
     atualizar();
