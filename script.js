@@ -45,9 +45,11 @@ const criarElemItem = (itemValue, itemId) => {
 
 //Função que adiona item do do array no HTML
 const addHtml = (itemValue, itemId) => {
+    let hr = document.createElement('hr')
     li = criarElemItem(itemValue, itemId);
     li.appendChild(criarBtnCheck(itemId));
     li.appendChild(criarBtnRemover(itemId));
+    li.appendChild(hr)
     ul.appendChild(li);
 };
 
